@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Джинси, джаз і самвидав: Десталінізація та молодь 1960-х</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#0F4C5C',
+                            amber: '#FB8B24',
+                            crimson: '#E36414',
+                            plum: '#5F0F40',
+                            cyan: '#00B4D8',
+                            paper: '#F8F9FA',
+                            dark: '#1E293B',
+                            cardBg: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        hand: ['Caveat', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .vintage-stamp {
+            border: 2px dashed #E36414;
+            transform: rotate(-2deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed selection:bg-brand-amber selection:text-white">
+
+    <!-- Sticky Navigation -->
+    <header class="sticky top-0 z-50 bg-brand-teal/95 backdrop-blur-md text-white shadow-lg border-b border-teal-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="bg-brand-amber text-slate-900 font-black text-xs px-2.5 py-1 rounded tracking-wider uppercase">1956–1965</span>
+                <span class="font-serif font-bold text-lg sm:text-xl tracking-tight hidden sm:inline">«Відлига» & Молодь УРСР</span>
+            </div>
+            <nav class="flex space-x-1 sm:space-x-4 text-xs sm:text-sm font-medium">
+                <a href="#kpis" class="px-2 py-1.5 rounded-md hover:bg-teal-700 transition-colors">Метрики</a>
+                <a href="#dynamics" class="px-2 py-1.5 rounded-md hover:bg-teal-700 transition-colors">Масштаб</a>
+                <a href="#economics" class="px-2 py-1.5 rounded-md hover:bg-teal-700 transition-colors">Економіка</a>
+                <a href="#spectrum" class="px-2 py-1.5 rounded-md hover:bg-teal-700 transition-colors">Свободи</a>
+                <a href="#simulator" class="px-2 py-1.5 rounded-md hover:bg-teal-700 transition-colors">Симулятор</a>
+                <a href="#quiz" class="px-2 py-1.5 rounded-md hover:bg-teal-700 transition-colors">Міфи</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-brand-teal via-slate-900 to-brand-plum text-white py-16 sm:py-24 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#FB8B24_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10 space-y-6">
+            <div class="inline-block bg-brand-crimson/80 text-white font-mono text-xs uppercase px-4 py-1.5 rounded-full tracking-widest border border-red-400/30">
+                Інтерактивна навчальна інфографіка з історії України
+            </div>
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-extrabold tracking-tight leading-tight">
+                Джинси, джаз і самвидав: <br>
+                <span class="text-brand-amber underline decoration-brand-crimson underline-offset-8">що означала десталінізація</span> для молоді 1960-х
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto font-light">
+                Сталінський терор завершився, розвіявши атмосферу тотального страху. Проте свобода «Відлиги» була неповною і суперечливою: нові модні тренди змагалися з комсомольськими патрулями, поезія шістдесятників поширювалася підпільно, а за джаз на рентгенівських знімках можна було вилетіти з університету.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <a href="#simulator" class="bg-brand-amber hover:bg-amber-600 text-slate-900 font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                    Спробувати себе в ситуаціях 1960-х
+                </a>
+                <a href="#economics" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 transition-all">
+                    Дослідити ціни та статки
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- KPI Section -->
+        <section id="kpis" class="space-y-6">
+            <div class="border-l-4 border-brand-amber pl-4">
+                <h2 class="text-2xl font-serif font-bold text-slate-900">Ключові показники епохи «Відлиги»</h2>
+                <p class="text-slate-600 text-sm">Цифрові орієнтири масштабних суспільних, культурних та побутових трансформацій в УРСР.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100 flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between text-brand-teal font-mono text-xs uppercase mb-2">
+                            <span>Політичний поштовх</span>
+                            <span class="bg-teal-50 text-brand-teal px-2 py-0.5 rounded font-bold">1956</span>
+                        </div>
+                        <div class="text-4xl font-black text-brand-teal mb-1">XX з'їзд</div>
+                        <p class="text-xs text-slate-500 font-medium">КПРС та «закрита доповідь» Хрущова</p>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-4 pt-3 border-t border-slate-100">
+                        Офіційний початок розвінчання культу особи Сталіна та амністії політичних в'язнів.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100 flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between text-brand-crimson font-mono text-xs uppercase mb-2">
+                            <span>Повернення з ГУЛАГу</span>
+                            <span class="bg-red-50 text-brand-crimson px-2 py-0.5 rounded font-bold">1953-1961</span>
+                        </div>
+                        <div class="text-4xl font-black text-brand-crimson mb-1">5.4 млн</div>
+                        <p class="text-xs text-slate-500 font-medium">Реабілітованих та амністованих осіб</p>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-4 pt-3 border-t border-slate-100">
+                        Повернення сотень тисяч українців із таборів додому, відновлення їхнього доброго імені.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100 flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between text-brand-amber font-mono text-xs uppercase mb-2">
+                            <span>Житлова революція</span>
+                            <span class="bg-amber-50 text-brand-amber px-2 py-0.5 rounded font-bold">Побут</span>
+                        </div>
+                        <div class="text-4xl font-black text-brand-amber mb-1">54 млн</div>
+                        <p class="text-xs text-slate-500 font-medium">Громадян отримали «хрущовки»</p>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-4 pt-3 border-t border-slate-100">
+                        Масове переселення родин з тісних комуналок у власні окремі квартири із власною кухнею.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100 flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between text-brand-plum font-mono text-xs uppercase mb-2">
+                            <span>Ціна стилю</span>
+                            <span class="bg-purple-50 text-brand-plum px-2 py-0.5 rounded font-bold">Чорний ринок</span>
+                        </div>
+                        <div class="text-4xl font-black text-brand-plum mb-1">200+ крб</div>
+                        <p class="text-xs text-slate-500 font-medium">Вартість джинсів Levi's у фарцовщиків</p>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-4 pt-3 border-t border-slate-100">
+                        При середній стипендії у 35 крб., джинси ставали недосяжною мрією та символом Свободи.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Dynamics of Thaw -->
+        <section id="dynamics" class="bg-white p-6 sm:p-8 rounded-2xl shadow-md border border-slate-100 space-y-6">
+            <div class="max-w-3xl">
+                <span class="text-xs font-mono font-bold text-brand-crimson uppercase tracking-wider">Розділ I • Динаміка змін</span>
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">Масштаби десталінізації: Реабілітація та Житловий бум</h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    Період 1953–1964 років характеризувався двома паралельними процесами: морально-політичним очищенням суспільства від спадщини сталінських репресій та побутовим покращенням умов життя. Перехід від репресивного страху до масового будівництва дешевого житла створив приватний простір, де молодь могла вільно спілкуватися без ризику доносів від сусідів по комуналці.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7">
+                    <div class="chart-container">
+                        <canvas id="rehabChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 space-y-4 text-sm text-slate-600 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-serif font-bold text-base text-slate-900 border-b border-slate-200 pb-2">Ключові висновки візуалізації</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start space-x-2">
+                            <span class="text-brand-crimson font-bold text-lg leading-none">•</span>
+                            <span><strong>Пік реабілітації (1956–1959):</strong> Після XX з'їзду комісії переглянули мільйони справ. В УРСР відновлено права понад 300 тисяч безпідставно засуджених громадян.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-brand-teal font-bold text-lg leading-none">•</span>
+                            <span><strong>«Хрущовський» житловий бум:</strong> Починаючи з постанови 1957 року про розвиток житлового будівництва, мільйони людей вперше отримали ізольоване житло.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-brand-amber font-bold text-lg leading-none">•</span>
+                            <span><strong>Приватний простір для дисидентства:</strong> Саме в окремих «хрущовках» виникла культура «кухонних розмов», читання самвидаву та прослуховування «ворожих голосів» по радіо.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Economics of Youth Culture -->
+        <section id="economics" class="bg-white p-6 sm:p-8 rounded-2xl shadow-md border border-slate-100 space-y-6">
+            <div class="max-w-3xl">
+                <span class="text-xs font-mono font-bold text-brand-teal uppercase tracking-wider">Розділ II • Економіка та побут</span>
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">Ціна свободи: Стипендія студента vs Чорний ринок</h2>
+                <p class="text-slate-600 text-sm sm:text-base mt-2">
+                    Офіційна радянська економіка не виробляла джинсів, джазових платівок чи стильного одягу. Усе це постачали «фарцовщики» — тіньові ділки, які купували імпортні речі в іноземних туристів. Порівняння офіційних доходів молоді та цін на чорному ринку демонструє, якою величезною була матеріальна ціна за право виглядатися та жити не «як усі».
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7">
+                    <div class="chart-container">
+                        <canvas id="pricesChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Interactive Calculator Widget -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 to-brand-teal text-white p-6 rounded-xl space-y-4 shadow-inner">
+                    <h3 class="font-serif font-bold text-lg text-brand-amber">🧮 Калькулятор студента 1962 року</h3>
+                    <p class="text-xs text-slate-300">
+                        Оберіть бажаний атрибут «західного життя», щоб розрахувати, скільки студентських стипендій (при бідній стипендії ~35 крб/міс) довелося б за нього віддати.
+                    </p>
+                    
+                    <div class="space-y-3 pt-2">
+                        <label class="block text-xs font-medium text-slate-200">Оберіть культову річ 1960-х:</label>
+                        <select id="itemSelect" onchange="calculateBudget()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-brand-amber">
+                            <option value="200">Справжні американські джинси (200 крб)</option>
+                            <option value="5">Платівка «на кістках» (рентген) (5 крб)</option>
+                            <option value="45">Західний нейлоновий плащ (45 крб)</option>
+                            <option value="120">Портативний магнітофон «Спідола» (120 крб)</option>
+                            <option value="0.25">Квиток у кіно на вечірній сеанс (0.25 крб)</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-white/10 p-4 rounded-lg border border-white/10 space-y-2 mt-4 text-center">
+                        <span class="text-xs uppercase text-slate-300 block">Еквівалент у стипендіях:</span>
+                        <div id="calcResult" class="text-3xl font-black text-brand-amber">5.7 місяців</div>
+                        <p id="calcNote" class="text-xs text-slate-300 italic">Студенту довелося б голодувати майже пів року!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Freedom Spectrum & Subculture Breakdown -->
+        <section id="spectrum" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Radar Chart: Domain Controls -->
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex flex-col justify-between space-y-4">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-plum uppercase tracking-wider">Розділ III • Аналіз контролю</span>
+                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-1">Спектр Свободи vs Рівень Контролю КПРС</h3>
+                    <p class="text-xs text-slate-600 mt-2">
+                        «Відлига» не була суцільною демократизацією. Лібералізація мала чіткі межі. На радарній діаграмі порівняно рівень допустимої свободи творчості та жорсткість цензури у 5 основних сферах життя молоді.
+                    </p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+                <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-100 italic">
+                    📌 <strong>Висновок:</strong> Найменше контролю припадало на побут та моду (фарцовка існувала напіввідкрито), тоді як політика та література каралися реальним ув'язненням чи примусовою психіатрією.
+                </p>
+            </div>
+
+            <!-- Doughnut Chart: Samizdat Composition -->
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex flex-col justify-between space-y-4">
+                <div>
+                    <span class="text-xs font-mono font-bold text-brand-amber uppercase tracking-wider">Розділ IV • Самвидав</span>
+                    <h3 class="text-xl font-serif font-bold text-slate-900 mt-1">Що поширювала молодь у «Самвидаві»?</h3>
+                    <p class="text-xs text-slate-600 mt-2">
+                        Оскільки офіційні видавництва відмовлялися друкувати сміливі твори, виник «Самвидав» — передруковані на машинописці або переписані від руки книжки та памфлети, які передавали з рук у руки на одну ніч.
+                    </p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="samizdatChart"></canvas>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                    <div>• <strong>40% Поезія:</strong> Симоненко, Костенко, Стус.</div>
+                    <div>• <strong>25% Правозахист:</strong> Заяви, судовищі.</div>
+                    <div>• <strong>20% Заборонена проза:</strong> Булгаков, Солженіцин.</div>
+                    <div>• <strong>15% Філософія & Переклади:</strong> Західний екзистенціалізм.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Interactive Historical Choice Simulator -->
+        <section id="simulator" class="bg-slate-900 text-white p-6 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden space-y-8">
+            <div class="max-w-3xl space-y-2">
+                <span class="bg-brand-crimson text-white font-mono text-xs uppercase px-3 py-1 rounded-full">Інтерактивний симулятор</span>
+                <h2 class="text-2xl sm:text-4xl font-serif font-bold text-brand-amber">Симулятор вибору: Студент 1960-х років</h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    Уяви себе на місці здобувача освіти того часу. У кожній ситуації тобі доведеться зробити вибір між особистою свободою та безпекою для власної кар'єри. Обирай варіант та дізнавайся про реальні наслідки!
+                </p>
+            </div>
+
+            <!-- Case Tabs Navigation -->
+            <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-4">
+                <button onclick="switchCase(1)" id="tab-btn-1" class="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-brand-amber text-slate-900 font-bold">
+                    Кейс 1: Модний вирок (Джинси)
+                </button>
+                <button onclick="switchCase(2)" id="tab-btn-2" class="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-slate-800 text-slate-300 hover:bg-slate-700">
+                    Кейс 2: Ножиці цензора (Кіно)
+                </button>
+                <button onclick="switchCase(3)" id="tab-btn-3" class="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-slate-800 text-slate-300 hover:bg-slate-700">
+                    Кейс 3: Ціна слова (Самвидав)
+                </button>
+            </div>
+
+            <!-- Case 1 Container -->
+            <div id="case-content-1" class="case-block space-y-6">
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-brand-crimson text-white text-xs px-2.5 py-1 rounded font-bold uppercase">Побут і Мода</span>
+                        <h3 class="text-xl font-bold text-white">Джинси проти комсомольського патруля</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Ти збирав гроші пів року і купив у фарцовщика джинси. Прийшовши в них на танці у клуб коледжу, тебе зупиняє комсомольський патруль з дружинниками. Вони вимагають іти додому переодягатися і погрожують доганою у комсомольський квиток за «поклоніння Заходу», що загрожує відрахуванням.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <button onclick="makeChoice(1, 'A')" class="p-4 rounded-xl border border-slate-600 hover:border-brand-amber bg-slate-900/60 text-left space-y-2 hover:bg-slate-800 transition-all group">
+                            <span class="text-xs font-bold text-brand-amber group-hover:underline">Варіант А: Підкоритися</span>
+                            <p class="text-xs text-slate-300">Піти переодягнутися та написати пояснювальну записку про «помилку».</p>
+                        </button>
+                        <button onclick="makeChoice(1, 'B')" class="p-4 rounded-xl border border-slate-600 hover:border-brand-crimson bg-slate-900/60 text-left space-y-2 hover:bg-slate-800 transition-all group">
+                            <span class="text-xs font-bold text-brand-crimson group-hover:underline">Варіант Б: Відстояти стиль</span>
+                            <p class="text-xs text-slate-300">Сперечатися про свободу вибору та намагатися пройти на танці, ризикуючи дипломом.</p>
+                        </button>
+                    </div>
+                </div>
+                <div id="choice-result-1" class="hidden bg-slate-800 p-5 rounded-xl border-l-4 border-brand-amber text-xs sm:text-sm text-slate-200 space-y-2"></div>
+            </div>
+
+            <!-- Case 2 Container -->
+            <div id="case-content-2" class="case-block hidden space-y-6">
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-brand-cyan text-slate-900 text-xs px-2.5 py-1 rounded font-bold uppercase">Кінематограф</span>
+                        <h3 class="text-xl font-bold text-white">Ножиці цензора та «Тіні забутих предків»</h3>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Ти — молодий кінорежисер, який зняв новаторський поетичний фільм про гуцульську культуру без радянських ідеологічних штампів. Художня рада Держкіно шокована і ставить ультиматум: або ти вирізаєш метафоричні релігійні сцени і додаєш епізод про успіхи колгоспу, або фільм іде «на полицю» (забороняється).
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <button onclick="makeChoice(2, 'A')" class="p-4 rounded-xl border border-slate-600 hover:border-brand-amber bg-slate-900/60 text-left space-y-2 hover:bg-slate-800 transition-all group">
+                            <span class="text-xs font-bold text-brand-amber group-hover:underline">Варіант А: Погодитися на правки</span>
+                            <p class="text-xs text-slate-300">Вирізати кращі сцени, щоб фільм хоча б у спотвореному вигляді побачив глядач.</p>
+                        </button>
+                        <button onclick="makeChoice(2, 'B')" class="p-4 rounded-xl border border-slate-600 hover:border-brand-crimson bg-slate-900/60 text-left space-y-2 hover:bg-slate-800 transition-all group">
+                            <span class="text-xs font-bold text-brand-crimson group-hover:underline">Варіант Б: Відмовитися від цензури</span>
+                            <p class="text-xs text-slate-300">Зберегти оригінал у недоторканності, прийнявши заборону стрічки та фініш кар'єри.</p>
+                        </button>
+                    </div>
+                </div>
+                <div id="choice-result-2" class="hidden bg-slate-800 p-5 rounded-xl border-l-4 border-brand-cyan text-xs sm:text-sm text-slate-200 space-y-2"></div>
+            </div>
+
+            <!-- Case 3 Container -->
+            <div id="case-content-3" class="case-block hidden space-y-6">
+                <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="bg-brand-amber text-slate-900 text-xs px-2.5 py-1 rounded font-bold uppercase">Література & Самвидав</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Ціна слова: Передрук віршів Василя Стуса</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Твій друг-дисидент пропонує тобі на ніч друкарську машинку і копірку, щоб передрукувати 10 примірників забороненій поезії для розповсюдження серед студентів. Ти розумієш, що КДБ активно вираховує машинописні шрифти, і у разі викриття тобі загрожує виключення та табори.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <button onclick="makeChoice(3, 'A')" class="p-4 rounded-xl border border-slate-600 hover:border-brand-amber bg-slate-900/60 text-left space-y-2 hover:bg-slate-800 transition-all group">
+                            <span class="text-xs font-bold text-brand-amber group-hover:underline">Варіант А: Поширювати самвидав</span>
+                            <p class="text-xs text-slate-300">Передруквати вірші всю ніч, бо суспільство має знати правду, незважаючи на ризик.</p>
+                        </button>
+                        <button onclick="makeChoice(3, 'B')" class="p-4 rounded-xl border border-slate-600 hover:border-brand-crimson bg-slate-900/60 text-left space-y-2 hover:bg-slate-800 transition-all group">
+                            <span class="text-xs font-bold text-brand-crimson group-hover:underline">Варіант Б: Відмовитися</span>
+                            <p class="text-xs text-slate-300">Спалити чернетки та повернутися до навчання, зосередившись на безпечному майбутньому.</p>
+                        </button>
+                    </div>
+                </div>
+                <div id="choice-result-3" class="hidden bg-slate-800 p-5 rounded-xl border-l-4 border-brand-crimson text-xs sm:text-sm text-slate-200 space-y-2"></div>
+            </div>
+        </section>
+
+        <!-- Section 5: Interactive Myth-Buster Quiz -->
+        <section id="quiz" class="bg-white p-6 sm:p-8 rounded-2xl shadow-md border border-slate-100 space-y-6">
+            <div class="max-w-3xl">
+                <span class="text-xs font-mono font-bold text-brand-crimson uppercase tracking-wider">Розділ V • Перевірка знань</span>
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">Правда чи Міф про десталінізацію?</h2>
+                <p class="text-slate-600 text-sm">
+                    Натискайте на картку твердження, щоб перевірити, чи відповідає воно реальним історичним фактам 1960-х років.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Question Card 1 -->
+                <div onclick="toggleQuiz(1)" class="cursor-pointer bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-brand-amber transition-all relative overflow-hidden group">
+                    <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                        <span>Твердження #1</span>
+                        <span class="text-brand-amber font-bold">Натисніть для відповіді</span>
+                    </div>
+                    <p class="font-medium text-slate-800 text-sm">
+                        «У 1960-х роках радянська молодь могла вільно купити американські джинси в будь-якому універмазі України.»
+                    </p>
+                    <div id="quiz-ans-1" class="hidden mt-4 pt-4 border-t border-slate-200 text-xs space-y-1">
+                        <span class="font-bold text-brand-crimson uppercase text-sm block">❌ Міф!</span>
+                        <p class="text-slate-600">
+                            Джинси не продавалися в офіційній торгівлі. Вони вважалися «буржуазним атрибутом» і доставалися виключно на чорному ринку через фарцовщиків за величезні гроші.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question Card 2 -->
+                <div onclick="toggleQuiz(2)" class="cursor-pointer bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-brand-amber transition-all relative overflow-hidden group">
+                    <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                        <span>Твердження #2</span>
+                        <span class="text-brand-amber font-bold">Натисніть для відповіді</span>
+                    </div>
+                    <p class="font-medium text-slate-800 text-sm">
+                        «Джазові хіти записували на використаних рентгенівських знімках, бо вінілових платівок не вистачало.»
+                    </p>
+                    <div id="quiz-ans-2" class="hidden mt-4 pt-4 border-t border-slate-200 text-xs space-y-1">
+                        <span class="font-bold text-brand-teal uppercase text-sm block">✅ Правда!</span>
+                        <p class="text-slate-600">
+                            Це явище називали «музикою на кістках» або «на ребрах». Кустарні рекордери вирізали колу з рентгенограм і нарізали канавки із західною музикою.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question Card 3 -->
+                <div onclick="toggleQuiz(3)" class="cursor-pointer bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-brand-amber transition-all relative overflow-hidden group">
+                    <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                        <span>Твердження #3</span>
+                        <span class="text-brand-amber font-bold">Натисніть для відповіді</span>
+                    </div>
+                    <p class="font-medium text-slate-800 text-sm">
+                        «Десталінізація повністю ліквідувала цензуру і дозволила вільно критикувати Комуністичну партію.»
+                    </p>
+                    <div id="quiz-ans-3" class="hidden mt-4 pt-4 border-t border-slate-200 text-xs space-y-1">
+                        <span class="font-bold text-brand-crimson uppercase text-sm block">❌ Міф!</span>
+                        <p class="text-slate-600">
+                            Цензура лише пом'якшилася. Критика Сталіна дозволялася лише в межах, окреслених партією, а критика самої радянської системи суворо каралася.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question Card 4 -->
+                <div onclick="toggleQuiz(4)" class="cursor-pointer bg-slate-50 p-6 rounded-xl border border-slate-200 hover:border-brand-amber transition-all relative overflow-hidden group">
+                    <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+                        <span>Твердження #4</span>
+                        <span class="text-brand-amber font-bold">Натисніть для відповіді</span>
+                    </div>
+                    <p class="font-medium text-slate-800 text-sm">
+                        «Масове будівництво "хрущовок" дало поштовх розвитку приватного дисидентського руху.»
+                    </p>
+                    <div id="quiz-ans-4" class="hidden mt-4 pt-4 border-t border-slate-200 text-xs space-y-1">
+                        <span class="font-bold text-brand-teal uppercase text-sm block">✅ Правда!</span>
+                        <p class="text-slate-600">
+                            Отримавши власну квартиру замість комуналки, люди позбулися постійного нагляду сусідів. Це породило феномен «кухонних розмов» та читання самвидаву.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary & Download Section -->
+        <section class="bg-gradient-to-r from-brand-teal to-slate-900 text-white p-8 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-2 text-center md:text-left">
+                <h3 class="text-2xl font-serif font-bold text-brand-amber">Підсумок навчального модуля</h3>
+                <p class="text-slate-300 text-sm max-w-2xl">
+                    Десталінізація 1960-х була двоїстою: вона дала молоді ковток свободи в моді, музиці та мистецтві, але залишила тоталітарну систему в її основі. 
+                </p>
+            </div>
+            <button onclick="window.print()" class="bg-brand-amber hover:bg-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl shadow-md transition-all whitespace-nowrap">
+                🖨️ Друк / Зберегти в PDF
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs space-y-2">
+        <p>© 2026 Навчально-методичний інтерактивний модуль з історії України та громадянської освіти.</p>
+        <p class="text-slate-500">Розроблено для здобувачів фахової передвищої освіти • Тема: «Десталінізація в УРСР»</p>
+    </footer>
+
+    <!-- JavaScript Charts & Logic -->
+    <script>
+        // Helper to split text labels longer than 16 chars into arrays
+        function wrapLabel(label, maxLength = 16) {
+            if (typeof label !== 'string' || label.length <= maxLength) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    if (currentLine) lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            });
+            if (currentLine) lines.push(currentLine.trim());
+            return lines;
+        }
+
+        // Global Chart Defaults & Tooltip Config Requirement
+        const defaultTooltipPlugin = {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Chart 1: Rehabilitation & Housing Trends
+        const ctxRehab = document.getElementById('rehabChart').getContext('2d');
+        const rehabLabels = [
+            '1953 (Смерть Сталіна)',
+            '1956 (XX зїзд КПРС)',
+            '1958 (Будівництво хрущовок)',
+            '1961 (Перейменування вулиць)',
+            '1964 (Кінець Відлиги)'
+        ].map(l => wrapLabel(l, 16));
+
+        new Chart(ctxRehab, {
+            type: 'bar',
+            data: {
+                labels: rehabLabels,
+                datasets: [
+                    {
+                        label: 'Реабілітовано осіб (тис.)',
+                        data: [15, 120, 95, 45, 20],
+                        backgroundColor: '#E36414',
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'Здано квартир у хрущовках (тис.)',
+                        data: [40, 110, 280, 420, 510],
+                        backgroundColor: '#0F4C5C',
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: defaultTooltipPlugin,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#F1F5F9' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Prices vs Stipend (Horizontal Bar)
+        const ctxPrices = document.getElementById('pricesChart').getContext('2d');
+        const priceLabels = [
+            'Стипендія студента',
+            'Середня зарплата',
+            'Платівка на рентгені',
+            'Нейлоновий плащ',
+            'Джинси на ринку'
+        ].map(l => wrapLabel(l, 16));
+
+        new Chart(ctxPrices, {
+            type: 'bar',
+            data: {
+                labels: priceLabels,
+                datasets: [{
+                    label: 'Вартість у карбованцях (1962 р.)',
+                    data: [35, 90, 5, 45, 200],
+                    backgroundColor: [
+                        '#00B4D8',
+                        '#0F4C5C',
+                        '#FB8B24',
+                        '#5F0F40',
+                        '#E36414'
+                    ],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...defaultTooltipPlugin,
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: '#F1F5F9' }
+                    }
+                }
+            }
+        });
+
+        // Chart 3: Control Radar Chart
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        const radarLabels = ['Побут і Мода', 'Музика й Джаз', 'Кінематограф', 'Поезія й Книги', 'Політика'].map(l => wrapLabel(l, 16));
+
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: radarLabels,
+                datasets: [
+                    {
+                        label: 'Рівень Свободи (1-10)',
+                        data: [7, 6, 4, 3, 1],
+                        borderColor: '#FB8B24',
+                        backgroundColor: 'rgba(251, 139, 36, 0.2)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Цензура КПРС (1-10)',
+                        data: [4, 5, 8, 9, 10],
+                        borderColor: '#E36414',
+                        backgroundColor: 'rgba(227, 100, 20, 0.2)',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: defaultTooltipPlugin,
+                scales: {
+                    r: {
+                        angleLines: { color: '#E2E8F0' },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+
+        // Chart 4: Samizdat Breakdown (Doughnut)
+        const ctxSamizdat = document.getElementById('samizdatChart').getContext('2d');
+        const samizdatLabels = ['Поезія шістдесятників', 'Правозахисні праці', 'Заборонена проза', 'Західна філософія'].map(l => wrapLabel(l, 16));
+
+        new Chart(ctxSamizdat, {
+            type: 'doughnut',
+            data: {
+                labels: samizdatLabels,
+                datasets: [{
+                    data: [40, 25, 20, 15],
+                    backgroundColor: ['#E36414', '#0F4C5C', '#FB8B24', '#5F0F40']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: defaultTooltipPlugin
+            }
+        });
+
+        // Calculator Logic
+        function calculateBudget() {
+            const price = parseFloat(document.getElementById('itemSelect').value);
+            const stipend = 35;
+            const months = (price / stipend).toFixed(1);
+            
+            const resEl = document.getElementById('calcResult');
+            const noteEl = document.getElementById('calcNote');
+
+            resEl.textContent = `${months} міс. стипендії`;
+
+            if (months > 4) {
+                noteEl.textContent = 'Для купівлі довелося б заощаджувати понад пів року або шукати підробіток!';
+            } else if (months >= 1) {
+                noteEl.textContent = 'Це коштувало більші ніж ціла місячна стипендія радянського студента.';
+            } else {
+                noteEl.textContent = 'Цілком доступна річ для повсякденного дозвілля.';
+            }
+        }
+
+        // Case Simulator Switcher
+        function switchCase(caseNum) {
+            document.querySelectorAll('.case-block').forEach(b => b.classList.add('hidden'));
+            document.getElementById(`case-content-${caseNum}`).classList.remove('hidden');
+
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`tab-btn-${i}`);
+                if (i === caseNum) {
+                    btn.className = 'px-4 py-2 rounded-lg font-medium text-sm transition-all bg-brand-amber text-slate-900 font-bold';
+                } else {
+                    btn.className = 'px-4 py-2 rounded-lg font-medium text-sm transition-all bg-slate-800 text-slate-300 hover:bg-slate-700';
+                }
+            }
+        }
+
+        function makeChoice(caseNum, option) {
+            const resDiv = document.getElementById(`choice-result-${caseNum}`);
+            resDiv.classList.remove('hidden');
+
+            if (caseNum === 1) {
+                if (option === 'A') {
+                    resDiv.innerHTML = `
+                        <strong class="text-brand-amber block mb-1">⚖️ Наслідки вашого вибору (Варіант А):</strong>
+                        Ви зберегли місце у коледжі та уникли виключення. Проте ваша гідність зазнала приниження. Більшість студентів 1960-х підкорялися тиску, ховаючи мости стилю для приватних вечірок.
+                    `;
+                } else {
+                    resDiv.innerHTML = `
+                        <strong class="text-brand-crimson block mb-1">⚖️ Наслідки вашого вибору (Варіант Б):</strong>
+                        Вас вивели з клубу, склали протокол і винесли сувору догану на комсомольських зборах. У реальному житті це часто призводило до втрати стипендії або гуртожитку.
+                    `;
+                }
+            } else if (caseNum === 2) {
+                if (option === 'A') {
+                    resDiv.innerHTML = `
+                        <strong class="text-brand-amber block mb-1">⚖️ Наслідки вашого вибору (Варіант А):</strong>
+                        Фільм вийшов у прокат, але втратив свою художню унікальність. Ви зробили компроміс із совістю, як це змушені були робити сотні радянських митців.
+                    `;
+                } else {
+                    resDiv.innerHTML = `
+                        <strong class="text-brand-cyan block mb-1">⚖️ Наслідки вашого вибору (Варіант Б):</strong>
+                        Фільм опинився «на полиці» на 20 років. Проте ви зберегли чистоту мистецтва. Саме так виник шедевр Сергія Параджанова та Івана Миколайчука «Тіні забутих предків».
+                    `;
+                }
+            } else if (caseNum === 3) {
+                if (option === 'A') {
+                    resDiv.innerHTML = `
+                        <strong class="text-brand-crimson block mb-1">⚖️ Наслідки вашого вибору (Варіант А):</strong>
+                        Ви зробили вагомий внесок у боротьбу за свободу слова! Проте за декілька місяців КДБ викриє гурток, і вам загрожуватиме до 5 років таборів або психіатрична лікарня.
+                    `;
+                } else {
+                    resDiv.innerHTML = `
+                        <strong class="text-brand-amber block mb-1">⚖️ Наслідки вашого вибору (Варіант Б):</strong>
+                        Ви залишилися в безпеці та закінчили навчання. Але система змусила вас відмовитися від власних переконань ради комфорту.
+                    `;
+                }
+            }
+        }
+
+        // Quiz Toggle Logic
+        function toggleQuiz(qNum) {
+            const ans = document.getElementById(`quiz-ans-${qNum}`);
+            ans.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
